@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import Form from './components/form';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import logo from './media/WrightTailored_Logo.png';
 import './App.css';
 
 class App extends Component {
-  componentDidMount() {
-  }
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <span className="header-text">WGG XML Form</span>
-        </header>
+        <AppBar 
+          position="static" 
+          style={{marginBottom: '2%',}}
+          title={<img alt="Wright Tailored by Wright Global Graphics" src={logo} />}
+        >
+          <Toolbar style={{ backgroundColor: '#1c1c1c', }}>
+            Wright Tailored Form
+          </Toolbar>
+        </AppBar>
         <Form></Form>
       </div>
     );
