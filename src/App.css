@@ -1,0 +1,39 @@
+.App {
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 75px;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.header-text {
+  padding: 10px;
+  margin: 10px;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.form {
+  margin: auto;
+  width: 50%;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
