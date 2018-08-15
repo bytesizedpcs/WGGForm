@@ -3,6 +3,10 @@ import { createOptions, createColorOptions } from '../helpers/options';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogContent';
+import DialogContent from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import convert from 'xml-js';
 import XLSX from 'xlsx';
@@ -51,6 +55,7 @@ class Form extends Component {
       orderNumber: '',
       pillowOption: 'sham',
       submittedBy: '',
+      hasError: false,
     });
 
   }
@@ -75,7 +80,12 @@ class Form extends Component {
     const worksheet = XLSX.utils.aoa_to_sheet(excelData);
     const new_workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(new_workbook, worksheet, "WGG Order Form");
-    XLSX.writeFile(new_workbook, 'workform.xlsb');
+    try {
+      XLSX.writeFile(new_workbook, 'workform.xlsb');
+    } catch(error) {
+      console.log(error);
+      this.setState({ hasError: true });
+    }
   }
 
   /**
