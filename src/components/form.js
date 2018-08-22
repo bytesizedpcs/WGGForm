@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { createOptions, createColorOptions } from '../helpers/options';
+import { getExcelData } from '../helpers/excel';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -8,7 +9,6 @@ import DialogActions from '@material-ui/core/DialogContent';
 import DialogContent from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import convert from 'xml-js';
 import XLSX from 'xlsx';
 
 const styles = theme => ({
@@ -31,16 +31,7 @@ class Form extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
-  }
-
-
-  /**
-   * Initializes the state once Form component has rendered
-   */
-  componentDidMount = () => {
-
-    this.setState({
+    this.state = {
       sizeOption: 'twin',
       fabricOption: 'banger',
       colorOption: 'slate',
@@ -56,80 +47,65 @@ class Form extends Component {
       pillowOption: 'sham',
       submittedBy: '',
       hasError: false,
-    });
+    };
 
   }
-
+  
   /**
-   * NOT IMPLEMENTED
+   * 
    * Submit the form to create XML document and send to MySQL database
    */
   handleSubmit = () => {
-    const excelData = [];
-    const column = [];
-    const row = [];
+    const form = {
+      'Size': this.state.sizeOption,
+      'Fabric': this.state.fabricOption,
+      'Color': this.state.colorOption,
+      'Backing': this.state.backingOption,
+      'Pockets': this.state.pocketOption,
+      'Quantity': this.state.quantityOption,
+      'Customer Name': this.state.customerName,
+      'Customer Code': this.state.customerCode,
+      'Date': this.state.date,
+      'Embroidery': this.state.embroideryOption,
+      'Order Number': this.state.orderNumber,
+      'Pillow': this.state.pillowOption,
+      'Submitted By': this.state.submittedBy,
+    };
 
-    Object.entries(this.state).forEach(([key, value]) => {
-      column.push([key]);
-      row.push([value]);
-    });
+    const data = getExcelData(form);
 
-    excelData.push(column);
-    excelData.push(row);
-
-    const worksheet = XLSX.utils.aoa_to_sheet(excelData);
-    const new_workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(new_workbook, worksheet, "WGG Order Form");
-    try {
-      XLSX.writeFile(new_workbook, 'workform.xlsb');
-    } catch(error) {
-      console.log(error);
-      this.setState({ hasError: true });
-    }
+    this.createExcelSheet(data);
   }
 
   /**
    * 
-   * @param {Name of file to download} filename 
-   * @param {Data that will be added to file} data 
-   * Creates an invisible link for the user to download once a download
-   * button is clicked
+   * @param {Array of Arrays} data 
+   * Takes an array of arrays and makes an excel sheet
    */
-  download(filename, data) {
-    const element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
-    element.setAttribute('download', filename);
+  createExcelSheet(data) {
 
-    element.style.display = 'none';
-    document.body.appendChild(element);
+    const worksheet = XLSX.utils.aoa_to_sheet(data);
+    const newWorkbook = XLSX.utils.book_new();
 
-    element.click();
+    XLSX.utils.book_append_sheet(newWorkbook, worksheet, 'WGG Order Form');
 
-    document.body.removeChild(element);
+    try {
+      XLSX.writeFile(newWorkbook, 'workform.xlsb');
+    } catch(error) {
+      console.error(error);
+
+      this.setState({ hasError: true });
+    }
+
   }
-
-
-  /**
-   * Creates the XML data for the user to download
-   * Uses an option object
-   * https://www.npmjs.com/package/xml-js
-   */
-  downloadXML = () => {
-    const xmlData = convert.json2xml(JSON.stringify(this.state), {
-      compact: true,
-      ignoreComment: true,
-      spaces: 4,
-    });
-    this.download('XML-Form.xml', xmlData);
-  }
-
+ 
   /**
    * Function to add all selections to state for XML parsing
    */
   handleSelection = (event) => {
     this.setState({
-      [event.target.name]: event.target.value,
-    }, () => console.log(this.state));
+        [event.target.name]: event.target.value,
+    }, () => console.log(this.state))
   }
 
   render() {
@@ -138,7 +114,7 @@ class Form extends Component {
     return (
       <div className="form" noValidate autoComplete="off">
         <form className={classes.container} onSubmit={this.handleSubmit}>
-          <Grid container spacing={12}>
+          <Grid container spacing={8}>
             <Inputs
               onSelect={this.handleSelection}
             ></Inputs>
