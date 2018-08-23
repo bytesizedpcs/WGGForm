@@ -33,6 +33,7 @@ class Form extends Component {
 
     this.state = {
       sizeOption: 'twin',
+      footOption: 'None',
       fabricOption: 'banger',
       colorOption: 'slate',
       backingOption: 'mousepad',
@@ -42,7 +43,8 @@ class Form extends Component {
       customerCode: '',
       itemNumber: '',
       date: '',
-      embroideryOption: '',
+      embroideryNumber: '',
+      embroideryOption: 'New',
       orderNumber: '',
       pillowOption: 'sham',
       submittedBy: '',
@@ -58,6 +60,7 @@ class Form extends Component {
   handleSubmit = () => {
     const form = {
       'Size': this.state.sizeOption,
+      'Foot Option': this.state.footOption,
       'Fabric': this.state.fabricOption,
       'Color': this.state.colorOption,
       'Backing': this.state.backingOption,
@@ -66,7 +69,9 @@ class Form extends Component {
       'Customer Name': this.state.customerName,
       'Customer Code': this.state.customerCode,
       'Date': this.state.date,
+      //Need to add a condition to show number
       'Embroidery': this.state.embroideryOption,
+      'Embroidery Number': this.state.embroideryNumber,
       'Order Number': this.state.orderNumber,
       'Pillow': this.state.pillowOption,
       'Submitted By': this.state.submittedBy,
@@ -125,14 +130,31 @@ class Form extends Component {
               sizeOption={this.state.sizeOption}
               onSelect={this.handleSelection}
             ></Size>
+            <FootProtector
+              footOption={this.state.footOption}
+              onSelect={this.handleSelection}
+            ></FootProtector>
             <Pillow
               pillowOption={this.state.pillowOption}
               onSelect={this.handleSelection}
             ></Pillow>
+            <ItemNumber
+              itemNumber={this.state.itemNumber}
+              onSelect={this.handleSelection}
+            ></ItemNumber>
             <Fabric
               onSelect={this.handleSelection}
               fabricOption={this.state.fabricOption}
             ></Fabric>
+            <Embroidery
+              onSelect={this.handleSelection}
+              embroideryOption={this.state.embroideryOption}
+            ></Embroidery>
+            <EmbroideryNumber
+              onSelect={this.handleSelection}
+              embroideryOption={this.state.embroideryOption}
+              embroideryNumber={this.state.embroideryNumber}
+            ></EmbroideryNumber>
             <Color
               fabricOption={this.state.fabricOption}
               colorOption={this.state.colorOption}
@@ -178,10 +200,10 @@ class Form extends Component {
 
 class Inputs extends Component {
   render() {
-    const fields = ['submittedBy', 'itemNumber', 'customerCode', 'customerName', 
-                    'quantityOption', 'embroideryOption', 'orderNumber'];
-    const labels = ['Submitted By', 'Item Number', 'Customer Code', 'Customer Name',
-                    'Quantity', 'Embroidery', 'Order Number'];
+    const fields = ['submittedBy', 'customerCode', 'customerName', 
+                    'quantityOption', 'orderNumber'];
+    const labels = ['Submitted By', 'Customer Code', 'Customer Name',
+                    'Quantity', 'Order Number'];
     return fields.map((field, index) => {
       return (
         <Grid item xs={12} md={6}>
@@ -199,6 +221,62 @@ class Inputs extends Component {
         </Grid>
       )
     })
+  }
+}
+
+class Embroidery extends Component {
+  render() {
+    const options = ['New', 'Standing'];
+    return (
+      <Grid item xs={12} md={6}>
+        <TextField 
+          id="order-embroidery" 
+          label="Embroidery Tape"
+          name="embroideryOption" 
+          style={{
+            marginBottom: '5%',
+            width: '50%'
+          }}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          select
+          margin="normal"
+          value={this.props.embroideryOption}
+          onChange={this.props.onSelect}
+        >
+          {
+            createOptions(options)
+          }
+        </TextField>
+      </Grid>
+    );
+  }
+}
+
+class EmbroideryNumber extends Component {
+  render() {
+    if (this.props.embroideryOption === 'standing') {
+      return (
+        <Grid item xs={12} md={6}>
+          <TextField
+            id="embroideryNumber"
+            label="Embroidery Tape #"
+            name="embroideryNumber"
+            style={{
+              marginBottom: '5%',
+              width: '50%'
+            }}
+            margin="normal"
+            value={this.props.embroideryNumber}
+            onChange={this.props.onSelect}
+          >
+          </TextField>
+        </Grid>
+      )
+    } else {
+      return null;
+    }
   }
 }
 
@@ -225,6 +303,36 @@ class Pillow extends Component {
         >
           {
             createOptions(pillows)
+          }
+        </TextField>
+      </Grid>
+    );
+  }
+}
+
+class ItemNumber extends Component {
+  render() {
+    const options = ['Body Pillow', 'Pillow Wrap', 'None'];
+    return (
+      <Grid item xs={12} md={6}>
+        <TextField
+          id="order-itemNumber"
+          label="Item Number"
+          name="itemNumber"
+          style={{
+            marginBottom: '5%',
+            width: '50%'
+          }}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          select
+          margin="normal"
+          value={this.props.itemNumber}
+          onChange={this.props.onSelect}
+        >
+          {
+            createOptions(options)
           }
         </TextField>
       </Grid>
@@ -286,6 +394,28 @@ class Size extends Component {
     );
   }
 
+}
+
+class FootProtector extends Component {
+  render() {
+    return (
+      <Grid item xs={12} md={6}>
+        <TextField
+          id="order-footprotector"
+          label="Foot Protector"
+          defaultValue="None"
+          style={{
+            marginBottom: '5%',
+            width: '50%'
+          }}
+          margin="normal"
+          value={this.props.footOption}
+          onChange={this.props.onSelect}
+        >
+        </TextField>
+      </Grid>
+    );
+  }
 }
 
 class Fabric extends Component {
@@ -379,22 +509,6 @@ class Pockets extends Component {
         }
         </TextField>
       </Grid>
-    );
-  }
-}
-
-class Logo extends Component {
-  render () {
-    const options = ['New', 'Existing'];
-
-    return (
-      <div>
-        <select type="text" name="embroiderOption" id="embroider-option"></select>
-        {
-          createOptions(options)
-        }
-        <input type="file" accept=".psd,.ai,image/*" name="logo-upload" id="logo-upload"></input>
-      </div>
     );
   }
 }
