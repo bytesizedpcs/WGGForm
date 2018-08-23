@@ -168,20 +168,6 @@ class Form extends Component {
             </Grid>
           </Grid>
         </form>
-        <div className="information">
-          <h3>
-            DETAIL AREA:
-          </h3>
-          <span>
-            <h4>Pillow Sham</h4>
-            30" x 20" standard fabric sham with coordinating solid fabric back with zipper closure
-          </span>
-          <span>
-            <h4>Foot Protector</h4>
-            56" x 16" foam backed fabric foot protector with 18" x 11" reveal and 2 stitched vinyl windows.  Windows are 12" x 9.5" to accomodate standard letter sized paper. Reveal has styrene and dacron to give it a smooth tailored look.
-          </span>
-
-        </div>
         <Button 
           variant="contained" 
           onClick={this.handleSubmit}
