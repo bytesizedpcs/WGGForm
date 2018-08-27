@@ -77,6 +77,7 @@ class Form extends Component {
       'Embroidery Color 4': this.state.embroideryColor3,
       'Embroidery Color 5': this.state.embroideryColor4,
       'Embroidery Color 6': this.state.embroideryColor5,
+      'Reveal Directions': this.state.revealDirection,
       'Order Number': this.state.orderNumber,
       'Pillow': this.state.pillowOption,
       'Submitted By': this.state.submittedBy,
@@ -169,6 +170,10 @@ class Form extends Component {
               colorOption={this.state.colorOption}
               onSelect={this.handleSelection}
             ></Color>
+            <RevealDirection
+              revealDirection={this.state.revealDirection}
+              onSelect={this.handleSelection}
+            ></RevealDirection>
             <Pockets
               pocketOption={this.state.pocketOption}
               onSelect={this.handleSelection}
@@ -487,7 +492,7 @@ class Color extends Component {
             width: '50%'
           }}
           InputLabelProps={{
-            shrink: true,
+            shrink: true
           }}
           select
           value={this.props.colorOption}
@@ -495,6 +500,37 @@ class Color extends Component {
         >
           {
             createColorOptions(colors, this.props.fabricOption)
+          }
+        </TextField>
+      </Grid>
+    );
+  }
+}
+
+class RevealDirection extends Component {
+  render() {
+    const options = ['Hinge Top', 'Hinge Left', 'Hinge Right'];
+
+    return (
+      <Grid item xs={12} md={6}>
+        <TextField
+          id="reveal-direction"
+          label="Reveal Direction"
+          name="revealDirection"
+          margin="normal"
+          style={{
+            marginBottom: '5%',
+            width: '50%'
+          }}
+          InputLabelProps={{
+            shrink: true
+          }}
+          select
+          value={this.props.revealDirection}
+          onChange={this.props.onSelect}
+        >
+          {
+            createOptions(options)
           }
         </TextField>
       </Grid>
