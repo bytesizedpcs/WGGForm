@@ -69,9 +69,14 @@ class Form extends Component {
       'Customer Name': this.state.customerName,
       'Customer Code': this.state.customerCode,
       'Date': this.state.date,
-      //Need to add a condition to show number
       'Embroidery': this.state.embroideryOption,
       'Embroidery Number': this.state.embroideryNumber,
+      'Embroidery Color 1': this.state.embroideryColor0,
+      'Embroidery Color 2': this.state.embroideryColor1,
+      'Embroidery Color 3': this.state.embroideryColor2,
+      'Embroidery Color 4': this.state.embroideryColor3,
+      'Embroidery Color 5': this.state.embroideryColor4,
+      'Embroidery Color 6': this.state.embroideryColor5,
       'Order Number': this.state.orderNumber,
       'Pillow': this.state.pillowOption,
       'Submitted By': this.state.submittedBy,
@@ -155,6 +160,10 @@ class Form extends Component {
               embroideryOption={this.state.embroideryOption}
               embroideryNumber={this.state.embroideryNumber}
             ></EmbroideryNumber>
+            <EmbroideryColors
+              onSelect={this.handleSelection}
+              embroideryColors={this.state.embroideryColors}
+            ></EmbroideryColors>
             <Color
               fabricOption={this.state.fabricOption}
               colorOption={this.state.colorOption}
@@ -263,6 +272,31 @@ class EmbroideryNumber extends Component {
     } else {
       return null;
     }
+  }
+}
+
+class EmbroideryColors extends Component {
+
+  render() {
+    return (
+      Array.from({length: 6}).map((_, index) => {
+        return (
+          <Grid item xs={12} md={6}>
+            <TextField
+              label={`Embroidery Color ${index + 1}`}
+              id={`embroidery-color-${index}`}
+              name={`embroideryColor${index}`}
+              style={{
+                marginBottom: '5%',
+                width: '50%'
+              }}
+              onChange={this.props.onSelect}
+              fullwidth
+            />
+          </Grid>
+        );
+      })
+    );
   }
 }
 
