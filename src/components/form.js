@@ -32,6 +32,7 @@ class Form extends Component {
     super(props);
 
     this.state = {
+      formName: '',
       sizeOption: 'twin',
       footOption: 'None',
       fabricOption: 'banger',
@@ -101,7 +102,7 @@ class Form extends Component {
     XLSX.utils.book_append_sheet(newWorkbook, worksheet, 'WGG Order Form');
 
     try {
-      XLSX.writeFile(newWorkbook, 'workform.xlsb');
+      XLSX.writeFile(newWorkbook, `${this.state.formName}.xlsb`);
     } catch(error) {
       console.error(error);
 
@@ -178,6 +179,10 @@ class Form extends Component {
               pocketOption={this.state.pocketOption}
               onSelect={this.handleSelection}
             ></Pockets>
+            <FormName
+              onSelect={this.handleSelection}
+              formName={this.state.formName}
+            ></FormName>
             <Grid item xs={12} md={6}>
             </Grid>
           </Grid>
@@ -221,6 +226,28 @@ class Inputs extends Component {
         </Grid>
       )
     })
+  }
+}
+
+class FormName extends Component {
+  render() {
+    return (
+      <Grid item xs={12} md={6}>
+          <TextField 
+            name="formName"
+            style={{
+              marginBottom: '5%',
+              width: '50%'
+            }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={this.props.onSelect} 
+            label="Form Name (When Downloaded)"
+            fullwidth
+          />
+      </Grid>
+    );
   }
 }
 
