@@ -472,7 +472,7 @@ class FootProtector extends Component {
 class Fabric extends Component {
   
   render() {
-    const fabrics = ['Banger', 'Jett', 'Mercer', 'Peak', 'Optima', 'Lustre'];
+    const fabrics = ['Banger', 'Jett', 'Mercer', 'Peak', 'Optima', 'Lustre', 'Tacoma'];
 
     return (
       <Grid item xs={12} md={6}>
@@ -505,7 +505,7 @@ class Color extends Component {
   render() {
     const colors = ['Cambridge', 'Slate', 'Heather', 'Khaki', 'Ruby', 'Smoke',
                     'Flannel', 'Buff', 'Lt-Grey', 'Fog', 'Cardinal', 'Stone',
-                    'Espresso', 'Charcoal', 'Black', 'Navy', 'Coal'];
+                    'Espresso', 'Charcoal', 'Black', 'Navy', 'Coal', 'Chocolate'];
     return (
       <Grid item xs={12} md={6}>
         <TextField 
