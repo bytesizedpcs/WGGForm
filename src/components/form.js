@@ -33,7 +33,7 @@ class Form extends Component {
 
     this.state = {
       fileName: '',
-      footOption: 'None',
+      footOption: '',
       fabricOption: 'banger',
       colorOption: 'slate',
       backingOption: 'mousepad',
@@ -444,20 +444,29 @@ class Size extends Component {
 
 class FootProtector extends Component {
   render() {
+    const options = ['None', 'Twin', 'Full', 'Queen', 'King'];
+
     return (
       <Grid item xs={12} md={6}>
         <TextField
           id="order-footprotector"
           label="Foot Protector"
-          defaultValue="None"
+          name="footOption"
+          select
           style={{
             marginBottom: '5%',
             width: '50%'
+          }}
+          InputLabelProps={{
+            shrink: true,
           }}
           margin="normal"
           value={this.props.footOption}
           onChange={this.props.onSelect}
         >
+          {
+            createOptions(options)
+          }
         </TextField>
       </Grid>
     );
