@@ -34,19 +34,18 @@ class Form extends Component {
     this.state = {
       fileName: '',
       footOption: '',
-      fabricOption: 'banger',
-      colorOption: 'slate',
-      backingOption: 'mousepad',
-      pocketOption: 'one',
+      fabricOption: '',
+      colorOption: '',
+      backingOption: '',
+      pocketOption: '',
       quantityOption: '',
       customerName: '',
       customerCode: '',
-      itemNumber: '',
       date: '',
       embroideryNumber: '',
-      embroideryOption: 'New',
+      embroideryOption: '',
       orderNumber: '',
-      pillowOption: 'sham',
+      pillowOption: '',
       submittedBy: '',
       hasError: false,
     };
@@ -141,10 +140,6 @@ class Form extends Component {
               pillowOption={this.state.pillowOption}
               onSelect={this.handleSelection}
             ></Pillow>
-            <ItemNumber
-              itemNumber={this.state.itemNumber}
-              onSelect={this.handleSelection}
-            ></ItemNumber>
             <Fabric
               onSelect={this.handleSelection}
               fabricOption={this.state.fabricOption}
