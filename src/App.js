@@ -19,6 +19,9 @@ class App extends Component {
             Wright Tailored Form
           </Toolbar>
         </AppBar>
+        <div id="instruction-div">
+          Click on the type below to enter your selections.
+        </div>
         <Form></Form>
       </div>
     );

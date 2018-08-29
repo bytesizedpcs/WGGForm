@@ -33,7 +33,6 @@ class Form extends Component {
 
     this.state = {
       fileName: '',
-      sizeOption: 'twin',
       footOption: 'None',
       fabricOption: 'banger',
       colorOption: 'slate',
@@ -60,7 +59,6 @@ class Form extends Component {
    */
   handleSubmit = () => {
     const form = {
-      'Size': this.state.sizeOption,
       'Foot Option': this.state.footOption,
       'Fabric': this.state.fabricOption,
       'Color': this.state.colorOption,
@@ -133,10 +131,6 @@ class Form extends Component {
             <Date
               onSelect={this.handleSelection}
             ></Date>
-            <Size
-              sizeOption={this.state.sizeOption}
-              onSelect={this.handleSelection}
-            ></Size>
             <FootProtector
               footOption={this.state.footOption}
               onSelect={this.handleSelection}
