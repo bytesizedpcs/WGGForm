@@ -77,7 +77,6 @@ class Form extends Component {
       'Embroidery Color 4': this.state.embroideryColor3,
       'Embroidery Color 5': this.state.embroideryColor4,
       'Embroidery Color 6': this.state.embroideryColor5,
-      'Reveal Directions': this.state.revealDirection,
       'Order Number': this.state.orderNumber,
       'Pillow': this.state.pillowOption,
       'Submitted By': this.state.submittedBy,
@@ -162,10 +161,6 @@ class Form extends Component {
               colorOption={this.state.colorOption}
               onSelect={this.handleSelection}
             ></Color>
-            <RevealDirection
-              revealDirection={this.state.revealDirection}
-              onSelect={this.handleSelection}
-            ></RevealDirection>
             <Pockets
               pocketOption={this.state.pocketOption}
               onSelect={this.handleSelection}
