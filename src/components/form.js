@@ -69,6 +69,8 @@ class Form extends Component {
       'Customer Code': this.state.customerCode,
       'Date': this.state.date,
       'Embroidery': this.state.embroideryOption,
+      'Foot Protector Item Number': this.state.footProtectorItemNumber,
+      'Pillow Item Number': this.state.pillowItemNumber,
       'Embroidery Number': this.state.embroideryNumber,
       'Embroidery Color 1': this.state.embroideryColor0,
       'Embroidery Color 2': this.state.embroideryColor1,
@@ -200,9 +202,9 @@ class Form extends Component {
 class Inputs extends Component {
   render() {
     const fields = ['submittedBy', 'customerCode', 'customerName', 
-                    'quantityOption', 'orderNumber'];
+                    'quantityOption', 'orderNumber', 'footProtectorItemNumber', 'pillowItemNumber'];
     const labels = ['Submitted By', 'Customer Code', 'Customer Name',
-                    'Quantity', 'Order Number'];
+                    'Quantity', 'Order Number', 'Foot Protector Item Number', 'Pillow Item Number'];
     return fields.map((field, index) => {
       return (
         <Grid item xs={12} md={6}>
@@ -212,6 +214,9 @@ class Inputs extends Component {
             style={{
               marginBottom: '5%',
               width: '50%'
+            }}
+            InputLabelProps={{
+              shrink: true,
             }}
             onChange={this.props.onSelect} 
             label={labels[index]} 
@@ -328,7 +333,8 @@ class EmbroideryColors extends Component {
 
 class Pillow extends Component {
   render() {
-    const pillows = ['Sham', 'Wedge'];
+    const pillows = ['None', 'Pillow Shams', 'Body Pillow', 'Pillow Wedge', 'Pillow Wrap'];
+
     return (
       <Grid item xs={12} md={6}>
         <TextField 
