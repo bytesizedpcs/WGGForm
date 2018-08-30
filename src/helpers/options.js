@@ -46,6 +46,7 @@ export function createColorOptions(options, fabric) {
     case 'tacoma':
       options.splice(0, 17);
       options.splice(1, options.length);
+      break;
     default:
       break;
   }

@@ -195,10 +195,9 @@ class Inputs extends Component {
                     'Quantity', 'Order Number', 'Foot Protector Item Number', 'Pillow Item Number'];
     return fields.map((field, index) => {
       return (
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} key={index}>
           <TextField 
             name={field} 
-            key={index} 
             style={{
               marginBottom: '5%',
               width: '50%'
@@ -300,7 +299,7 @@ class EmbroideryColors extends Component {
     return (
       Array.from({length: 6}).map((_, index) => {
         return (
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={6} key={index}>
             <TextField
               label={`Embroidery Color ${index + 1}`}
               id={`embroidery-color-${index}`}
