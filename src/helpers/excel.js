@@ -1,5 +1,5 @@
 
-export const getExcelData = (_state) => {
+export function getExcelData(_state) {
   const data = [];
   const cols = [];
   const rows = [];
@@ -14,3 +14,4 @@ export const getExcelData = (_state) => {
 
   return data;
 }
+

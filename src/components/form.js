@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { createOptions, createColorOptions } from '../helpers/options';
-import { getExcelData } from '../helpers/excel';
+import XLSX from 'xlsx';
 import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogContent';
 import DialogContent from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
-import XLSX from 'xlsx';
+import { withStyles } from '@material-ui/core/styles';
+import { createOptions, createColorOptions } from '../helpers/options';
+import { getExcelData } from '../helpers/excel';
 
 const styles = theme => ({
   container: {
@@ -51,7 +51,27 @@ class Form extends Component {
     };
 
   }
-  
+
+  /**
+   * Creates and excel sheet from an array of arrays
+   */
+  createExcelSheet = (data) => {
+
+    const worksheet = XLSX.utils.aoa_to_sheet(data);
+    const newWorkbook = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(newWorkbook, worksheet, 'WGG Order Form');
+
+    try {
+      XLSX.writeFile(newWorkbook, `${this.state.fileName}.xlsb`);
+    } catch(error) {
+      console.error(error);
+
+      this.setState({ hasError: true });
+    }
+
+  } 
+
   /**
    * 
    * Submit the form to create XML document and send to MySQL database
@@ -87,28 +107,6 @@ class Form extends Component {
     this.createExcelSheet(data);
   }
 
-  /**
-   * 
-   * @param {Array of Arrays} data 
-   * Takes an array of arrays and makes an excel sheet
-   */
-  createExcelSheet(data) {
-
-    const worksheet = XLSX.utils.aoa_to_sheet(data);
-    const newWorkbook = XLSX.utils.book_new();
-
-    XLSX.utils.book_append_sheet(newWorkbook, worksheet, 'WGG Order Form');
-
-    try {
-      XLSX.writeFile(newWorkbook, `${this.state.fileName}.xlsb`);
-    } catch(error) {
-      console.error(error);
-
-      this.setState({ hasError: true });
-    }
-
-  }
- 
   /**
    * Function to add all selections to state for XML parsing
    */
