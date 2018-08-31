@@ -77,6 +77,7 @@ class Form extends Component {
    * Submit the form to create XML document and send to MySQL database
    */
   handleSubmit = () => {
+
     const form = {
       'Foot Option': this.state.footOption,
       'Fabric': this.state.fabricOption,
@@ -193,6 +194,7 @@ class Inputs extends Component {
                     'quantityOption', 'orderNumber', 'footProtectorItemNumber', 'pillowItemNumber'];
     const labels = ['Submitted By', 'Customer Code', 'Customer Name',
                     'Quantity', 'Order Number', 'Foot Protector Item Number', 'Pillow Item Number'];
+
     return fields.map((field, index) => {
       return (
         <Grid item xs={12} md={6} key={index}>
@@ -216,6 +218,7 @@ class Inputs extends Component {
 }
 
 class FileName extends Component {
+
   render() {
     return (
       <Grid item xs={12} md={6}>
@@ -238,8 +241,10 @@ class FileName extends Component {
 }
 
 class Embroidery extends Component {
+
   render() {
     const options = ['New', 'Standing'];
+
     return (
       <Grid item xs={12} md={6}>
         <TextField 
@@ -268,6 +273,7 @@ class Embroidery extends Component {
 }
 
 class EmbroideryNumber extends Component {
+
   render() {
     if (this.props.embroideryOption === 'standing') {
       return (

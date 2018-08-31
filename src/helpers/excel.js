@@ -1,3 +1,7 @@
+/**
+ * Creates an array of arrays out of state
+ *
+ */
 
 export function getExcelData(_state) {
   const data = [];

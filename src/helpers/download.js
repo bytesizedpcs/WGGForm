@@ -20,7 +20,7 @@ export function download(filename, data) {
 
     document.body.removeChild(element);
 
-  }
+}
 
 /**
  * Creates the XML data for the user to download
@@ -38,4 +38,4 @@ export const downloadXML = (state) => {
     });
 
     download('XML-Form.xml', xmlData);
-  }
+}

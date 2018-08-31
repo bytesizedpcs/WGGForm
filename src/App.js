@@ -13,12 +13,12 @@ class App extends Component {
         <AppBar 
           position="static" 
           style={{marginBottom: '2%',}}
-          title={<img alt="Wright Tailored by Wright Global Graphics" src={logo} />}
         >
           <Toolbar style={{ backgroundColor: '#1c1c1c', }}>
             Wright Tailored Form
           </Toolbar>
         </AppBar>
+        <img id="logo" src={logo} width="300" alt="Wright Tailored" />
         <div id="instruction-div">
           Click on the type below to enter your selections.
         </div>
