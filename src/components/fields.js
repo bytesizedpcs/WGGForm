@@ -1,202 +1,10 @@
 import React, { Component } from 'react';
-import XLSX from 'xlsx';
+import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
-import { 
-  Inputs,
-  Date, 
-  FootProtector, 
-  Pillow, 
-  Fabric, 
-  Embroidery,
-  EmbroideryNumber, 
-  EmbroideryColors, 
-  Color, 
-  Pockets, 
-  FileName 
-} from './fields.js';
-import { getExcelData } from '../helpers/excel';
+import { createOptions, createColorOptions } from '../helpers/options';
 
-const styles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200,
-  },
-  menu: {
-    width: 200,
-  },
-});
+export class Inputs extends Component {
 
-class Form extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      fileName: '',
-      footOption: '',
-      fabricOption: '',
-      colorOption: '',
-      backingOption: '',
-      pocketOption: '',
-      quantityOption: '',
-      customerName: '',
-      customerCode: '',
-      date: '',
-      embroideryNumber: '',
-      embroideryOption: '',
-      orderNumber: '',
-      pillowOption: '',
-      submittedBy: '',
-      hasError: false,
-    };
-
-  }
-
-  /**
-   * Creates and excel sheet from an array of arrays
-   */
-  createExcelSheet = (data) => {
-
-    const worksheet = XLSX.utils.aoa_to_sheet(data);
-    const newWorkbook = XLSX.utils.book_new();
-
-    XLSX.utils.book_append_sheet(newWorkbook, worksheet, 'WGG Order Form');
-
-    try {
-      XLSX.writeFile(newWorkbook, `${this.state.fileName}.xlsb`);
-    } catch(error) {
-      console.error(error);
-
-      this.setState({ hasError: true });
-    }
-
-  } 
-
-  /**
-   * 
-   * Submit the form to create XML document and send to MySQL database
-   */
-  handleSubmit = () => {
-
-    const form = {
-      'Foot Option': this.state.footOption,
-      'Fabric': this.state.fabricOption,
-      'Color': this.state.colorOption,
-      'Backing': this.state.backingOption,
-      'Pockets': this.state.pocketOption,
-      'Quantity': this.state.quantityOption,
-      'Customer Name': this.state.customerName,
-      'Customer Code': this.state.customerCode,
-      'Date': this.state.date,
-      'Embroidery': this.state.embroideryOption,
-      'Foot Protector Item Number': this.state.footProtectorItemNumber,
-      'Pillow Item Number': this.state.pillowItemNumber,
-      'Embroidery Number': this.state.embroideryNumber,
-      'Embroidery Color 1': this.state.embroideryColor0,
-      'Embroidery Color 2': this.state.embroideryColor1,
-      'Embroidery Color 3': this.state.embroideryColor2,
-      'Embroidery Color 4': this.state.embroideryColor3,
-      'Embroidery Color 5': this.state.embroideryColor4,
-      'Embroidery Color 6': this.state.embroideryColor5,
-      'Order Number': this.state.orderNumber,
-      'Pillow': this.state.pillowOption,
-      'Submitted By': this.state.submittedBy,
-    };
-
-    const data = getExcelData(form);
-
-    this.createExcelSheet(data);
-  }
-
-  /**
-   * Function to add all selections to state for XML parsing
-   */
-  handleSelection = (event) => {
-    this.setState({
-        [event.target.name]: event.target.value,
-    }, () => console.log(this.state))
-  }
-
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <div className="form" noValidate autoComplete="off">
-        <form className={classes.container} onSubmit={this.handleSubmit}>
-          <Grid container spacing={8}>
-            <Inputs
-              onSelect={this.handleSelection}
-            ></Inputs>
-            <Date
-              onSelect={this.handleSelection}
-            ></Date>
-            <FootProtector
-              footOption={this.state.footOption}
-              onSelect={this.handleSelection}
-            ></FootProtector>
-            <Pillow
-              pillowOption={this.state.pillowOption}
-              onSelect={this.handleSelection}
-            ></Pillow>
-            <Fabric
-              onSelect={this.handleSelection}
-              fabricOption={this.state.fabricOption}
-            ></Fabric>
-            <Embroidery
-              onSelect={this.handleSelection}
-              embroideryOption={this.state.embroideryOption}
-            ></Embroidery>
-            <EmbroideryNumber
-              onSelect={this.handleSelection}
-              embroideryOption={this.state.embroideryOption}
-              embroideryNumber={this.state.embroideryNumber}
-            ></EmbroideryNumber>
-            <EmbroideryColors
-              onSelect={this.handleSelection}
-              embroideryColors={this.state.embroideryColors}
-            ></EmbroideryColors>
-            <Color
-              fabricOption={this.state.fabricOption}
-              colorOption={this.state.colorOption}
-              onSelect={this.handleSelection}
-            ></Color>
-            <Pockets
-              pocketOption={this.state.pocketOption}
-              onSelect={this.handleSelection}
-            ></Pockets>
-            <FileName
-              onSelect={this.handleSelection}
-              formName={this.state.formName}
-            ></FileName>
-            <Grid item xs={12} md={6}>
-            </Grid>
-          </Grid>
-        </form>
-        <Button 
-          variant="contained" 
-          onClick={this.handleSubmit}
-          style={{
-            margin: '5%',
-            color: 'white',
-            backgroundColor: '#338BAE'
-          }}
-        >
-          Submit
-        </Button>
-      </div>
-    );
-  }
-}
-
-/**
-class Inputs extends Component {
   render() {
     const fields = ['submittedBy', 'customerCode', 'customerName', 
                     'quantityOption', 'orderNumber', 'footProtectorItemNumber', 'pillowItemNumber'];
@@ -225,7 +33,7 @@ class Inputs extends Component {
   }
 }
 
-class FileName extends Component {
+export class FileName extends Component {
 
   render() {
     return (
@@ -248,7 +56,7 @@ class FileName extends Component {
   }
 }
 
-class Embroidery extends Component {
+export class Embroidery extends Component {
 
   render() {
     const options = ['New', 'Standing'];
@@ -280,7 +88,7 @@ class Embroidery extends Component {
   }
 }
 
-class EmbroideryNumber extends Component {
+export class EmbroideryNumber extends Component {
 
   render() {
     if (this.props.embroideryOption === 'standing') {
@@ -307,7 +115,7 @@ class EmbroideryNumber extends Component {
   }
 }
 
-class EmbroideryColors extends Component {
+export class EmbroideryColors extends Component {
 
   render() {
     return (
@@ -332,7 +140,7 @@ class EmbroideryColors extends Component {
   }
 }
 
-class Pillow extends Component {
+export class Pillow extends Component {
   render() {
     const pillows = ['None', 'Pillow Shams', 'Body Pillow', 'Pillow Wedge', 'Pillow Wrap'];
 
@@ -363,7 +171,7 @@ class Pillow extends Component {
   }
 }
 
-class ItemNumber extends Component {
+export class ItemNumber extends Component {
   render() {
     const options = ['Body Pillow', 'Pillow Wrap', 'None'];
     return (
@@ -393,7 +201,7 @@ class ItemNumber extends Component {
   }
 }
 
-class Date extends Component {
+export class Date extends Component {
   render() {
     return (
       <Grid item xs={12} md={6}>
@@ -416,7 +224,7 @@ class Date extends Component {
   }
 }
 
-class Size extends Component {
+export class Size extends Component {
 
   render() {
     const sizes = ['Twin', 'Full', 'Queen', 'King'];
@@ -449,7 +257,7 @@ class Size extends Component {
 
 }
 
-class FootProtector extends Component {
+export class FootProtector extends Component {
   render() {
     const options = ['None', 'Twin', 'Full', 'Queen', 'King'];
 
@@ -480,7 +288,7 @@ class FootProtector extends Component {
   }
 }
 
-class Fabric extends Component {
+export class Fabric extends Component {
   
   render() {
     const fabrics = ['Banger', 'Jett', 'Mercer', 'Peak', 'Optima', 'Lustre', 'Tacoma'];
@@ -512,7 +320,7 @@ class Fabric extends Component {
   }
 }
 
-class Color extends Component {
+export class Color extends Component {
   render() {
     const colors = ['Cambridge', 'Slate', 'Heather', 'Khaki', 'Ruby', 'Smoke',
                     'Flannel', 'Buff', 'Lt-Grey', 'Fog', 'Cardinal', 'Stone',
@@ -544,7 +352,7 @@ class Color extends Component {
   }
 }
 
-class RevealDirection extends Component {
+export class RevealDirection extends Component {
   render() {
     const options = ['Hinge Top', 'Hinge Left', 'Hinge Right'];
 
@@ -575,7 +383,7 @@ class RevealDirection extends Component {
   }
 }
 
-class Pockets extends Component {
+export class Pockets extends Component {
   render() {
     const pockets = ['One', 'Two'];
 
@@ -605,6 +413,4 @@ class Pockets extends Component {
     );
   }
 }
-*/
 
-export default withStyles(styles)(Form);
