@@ -14,7 +14,8 @@ import {
   EmbroideryColors, 
   Color, 
   Pockets, 
-  FileName 
+  FileName,
+  Size,
 } from './fields.js';
 import { getExcelData } from '../helpers/excel';
 
@@ -94,6 +95,7 @@ class Form extends Component {
       'Quantity': this.state.quantityOption,
       'Customer Name': this.state.customerName,
       'Customer Code': this.state.customerCode,
+      'Size': this.state.sizeOption,
       'Date': this.state.date,
       'Embroidery': this.state.embroideryOption,
       'Foot Protector Item Number': this.state.footProtectorItemNumber,
@@ -134,6 +136,10 @@ class Form extends Component {
             <Inputs
               onSelect={this.handleSelection}
             ></Inputs>
+            <Size
+              onSelect={this.handleSelection}
+              sizeOption={this.state.sizeOption}
+            ></Size>
             <Date
               onSelect={this.handleSelection}
             ></Date>

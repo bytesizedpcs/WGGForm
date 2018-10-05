@@ -7,9 +7,11 @@ export class Inputs extends Component {
 
   render() {
     const fields = ['submittedBy', 'customerCode', 'customerName', 
-                    'quantityOption', 'orderNumber', 'footProtectorItemNumber', 'pillowItemNumber'];
+                    'quantityOption', 'orderNumber', 'footProtectorItemNumber', 'pillowItemNumber',
+                    'footProtectorQuanity', 'pillowQuantity'];
     const labels = ['Submitted By', 'Customer Code', 'Customer Name',
-                    'Quantity', 'Order Number', 'Foot Protector Item Number', 'Pillow Item Number'];
+                    'Quantity', 'Order Number', 'Foot Protector Item Number', 'Pillow Item Number',
+                    'Foot Protector Quantity', 'Pillow Quantity'];
 
     return fields.map((field, index) => {
       return (
