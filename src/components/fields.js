@@ -113,7 +113,7 @@ export class EmbroideryColors extends Component {
 
   render() {
     return (
-      Array.from({length: 6}).map((_, index) => {
+      Array.from({length: 4}).map((_, index) => {
         return (
           <Grid item xs={12} md={6} key={index}>
             <TextField

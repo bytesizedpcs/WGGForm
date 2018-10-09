@@ -128,13 +128,7 @@ class Form extends Component {
 
   render() {
     const { classes } = this.props;
-    const fields = ['submittedBy', 'customerCode', 'customerName', 
-                    'quantityOption', 'orderNumber', 'footProtectorItemNumber', 'pillowItemNumber',
-                    'footProtectorQuanity', 'pillowQuantity'];
-    const labels = ['Submitted By', 'Customer Code', 'Customer Name',
-                    'Quantity', 'Order Number', 'Foot Protector Item Number', 'Pillow Item Number',
-                    'Foot Protector Quantity', 'Pillow Quantity'];
-
+    
     return (
       <div className="form" noValidate autoComplete="off">
         <form className={classes.container} onSubmit={this.handleSubmit}>
@@ -151,6 +145,11 @@ class Form extends Component {
               onSelect={this.handleSelection}
               sizeOption={this.state.sizeOption}
             ></Size>
+            <Inputs
+              onSelect={this.handleSelection}
+              fields={['footProtectorItemNumber', 'pillowItemNumber']}
+              labels={['Foot Protector Item Number', 'Pillow Item Number']}
+            ></Inputs>
             <FootProtector
               footOption={this.state.footOption}
               onSelect={this.handleSelection}
@@ -159,6 +158,11 @@ class Form extends Component {
               pillowOption={this.state.pillowOption}
               onSelect={this.handleSelection}
             ></Pillow>
+            <Inputs
+              onSelect={this.handleSelection}
+              fields={['footProtectorQuantity', 'pillowQuantity']}
+              labels={['Foot Protector Quantity', 'Pillow Quantity']}
+            ></Inputs>
             <Fabric
               onSelect={this.handleSelection}
               fabricOption={this.state.fabricOption}
@@ -181,10 +185,6 @@ class Form extends Component {
               colorOption={this.state.colorOption}
               onSelect={this.handleSelection}
             ></Color>
-            <Pockets
-              pocketOption={this.state.pocketOption}
-              onSelect={this.handleSelection}
-            ></Pockets>
             <FileName
               onSelect={this.handleSelection}
               formName={this.state.formName}
