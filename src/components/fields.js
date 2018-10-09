@@ -3,17 +3,9 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { createOptions, createColorOptions } from '../helpers/options';
 
-export class Inputs extends Component {
-
-  render() {
-    const fields = ['submittedBy', 'customerCode', 'customerName', 
-                    'quantityOption', 'orderNumber', 'footProtectorItemNumber', 'pillowItemNumber',
-                    'footProtectorQuanity', 'pillowQuantity'];
-    const labels = ['Submitted By', 'Customer Code', 'Customer Name',
-                    'Quantity', 'Order Number', 'Foot Protector Item Number', 'Pillow Item Number',
-                    'Foot Protector Quantity', 'Pillow Quantity'];
-
-    return fields.map((field, index) => {
+export const Inputs = function (props) {
+  return (
+    props.fields.map((field, index) => {
       return (
         <Grid item xs={12} md={6} key={index}>
           <TextField 
@@ -25,15 +17,15 @@ export class Inputs extends Component {
             InputLabelProps={{
               shrink: true,
             }}
-            onChange={this.props.onSelect} 
-            label={labels[index]} 
+            onChange={props.onSelect} 
+            label={props.labels[index]} 
             fullwidth
           />
         </Grid>
       )
     })
-  }
-}
+  )
+};
 
 export class FileName extends Component {
 

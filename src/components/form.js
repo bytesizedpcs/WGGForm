@@ -128,21 +128,29 @@ class Form extends Component {
 
   render() {
     const { classes } = this.props;
+    const fields = ['submittedBy', 'customerCode', 'customerName', 
+                    'quantityOption', 'orderNumber', 'footProtectorItemNumber', 'pillowItemNumber',
+                    'footProtectorQuanity', 'pillowQuantity'];
+    const labels = ['Submitted By', 'Customer Code', 'Customer Name',
+                    'Quantity', 'Order Number', 'Foot Protector Item Number', 'Pillow Item Number',
+                    'Foot Protector Quantity', 'Pillow Quantity'];
 
     return (
       <div className="form" noValidate autoComplete="off">
         <form className={classes.container} onSubmit={this.handleSubmit}>
           <Grid container spacing={8}>
+            <Date
+              onSelect={this.handleSelection}
+            ></Date>
             <Inputs
               onSelect={this.handleSelection}
+              fields={['submittedBy', 'customerCode', 'customerName', 'salesOrderNumber']}
+              labels={['Submitted By', 'Customer Code', 'Customer Name', 'Sales Order Number']}
             ></Inputs>
             <Size
               onSelect={this.handleSelection}
               sizeOption={this.state.sizeOption}
             ></Size>
-            <Date
-              onSelect={this.handleSelection}
-            ></Date>
             <FootProtector
               footOption={this.state.footOption}
               onSelect={this.handleSelection}
