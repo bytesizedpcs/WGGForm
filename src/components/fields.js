@@ -19,13 +19,37 @@ export const Inputs = function (props) {
             }}
             onChange={props.onSelect} 
             label={props.labels[index]} 
-            fullwidth
+            fullWidth
           />
         </Grid>
       )
     })
   )
 };
+
+export const Notes = function(props) {
+  const { notes, onSelect } = props;
+  return (
+    <Grid item xs={12} md={6}>
+      <TextField
+        id="order-notes"
+        label="Notes"
+        name="notes"
+        style={{
+          marginLeft: '25%',
+        }}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        value={notes}
+        onChange={onSelect}
+        multiline
+        fullWidth
+        rows="4"
+        />
+    </Grid>
+  )
+}
 
 export class FileName extends Component {
 
@@ -43,7 +67,7 @@ export class FileName extends Component {
             }}
             onChange={this.props.onSelect} 
             label="File Name (When Downloaded)"
-            fullwidth
+            fullWidth
           />
       </Grid>
     );
@@ -125,7 +149,7 @@ export class EmbroideryColors extends Component {
                 width: '50%'
               }}
               onChange={this.props.onSelect}
-              fullwidth
+              fullWidth
             />
           </Grid>
         );

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import XLSX from 'xlsx';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -13,12 +14,17 @@ import {
   EmbroideryNumber, 
   EmbroideryColors, 
   Color, 
-  Pockets, 
   FileName,
   Size,
+  Notes,
 } from './fields.js';
 import { getExcelData } from '../helpers/excel';
 
+/**
+ * 
+ * @param {*} theme 
+ * Styles for Material UI components
+ */
 const styles = theme => ({
   container: {
     display: 'flex',
@@ -40,21 +46,24 @@ class Form extends Component {
     super(props);
 
     this.state = {
-      fileName: '',
-      footOption: '',
-      fabricOption: '',
-      colorOption: '',
-      backingOption: '',
-      pocketOption: '',
-      quantityOption: '',
-      customerName: '',
-      customerCode: '',
-      date: '',
-      embroideryNumber: '',
-      embroideryOption: '',
-      orderNumber: '',
-      pillowOption: '',
-      submittedBy: '',
+      values: {
+        fileName: '',
+        footOption: '',
+        fabricOption: '',
+        colorOption: '',
+        backingOption: '',
+        pocketOption: '',
+        quantityOption: '',
+        customerName: '',
+        customerCode: '',
+        date: '',
+        embroideryNumber: '',
+        embroideryOption: '',
+        orderNumber: '',
+        pillowOption: '',
+        submittedBy: '',
+        notes: '',
+      },
       hasError: false,
     };
 
@@ -86,6 +95,25 @@ class Form extends Component {
    */
   handleSubmit = () => {
 
+    const { values } = this.state;
+
+    /**
+    const form = Object.entries(values).reduce(([key, value]) => ({
+      prev[_.startCase(key)] = value
+    }));
+    */
+    
+    const form = Object.entries(values).reduce((accum, [key, value]) => {
+      console.log('Accum', accum)
+      console.log('Key', key)
+      console.log('value', value)
+      accum.push([key, value]);
+      return accum;
+    }, []);
+
+    console.log('Form', form);
+
+    /**
     const form = {
       'Foot Option': this.state.footOption,
       'Fabric': this.state.fabricOption,
@@ -105,12 +133,12 @@ class Form extends Component {
       'Embroidery Color 2': this.state.embroideryColor1,
       'Embroidery Color 3': this.state.embroideryColor2,
       'Embroidery Color 4': this.state.embroideryColor3,
-      'Embroidery Color 5': this.state.embroideryColor4,
-      'Embroidery Color 6': this.state.embroideryColor5,
       'Order Number': this.state.orderNumber,
       'Pillow': this.state.pillowOption,
       'Submitted By': this.state.submittedBy,
+      'Notes': this.state.notes,
     };
+    */
 
     const data = getExcelData(form);
 
@@ -121,13 +149,18 @@ class Form extends Component {
    * Function to add all selections to state for XML parsing
    */
   handleSelection = (event) => {
-    this.setState({
-        [event.target.name]: event.target.value,
-    }, () => console.log(this.state))
+    const { target: { name, value } } = event;
+    this.setState(prevState => ({
+      values: {
+        ...prevState.values,
+        [name]: value,
+      },
+    }));
   }
 
   render() {
     const { classes } = this.props;
+    const { values } = this.state;
     
     return (
       <div className="form" noValidate autoComplete="off">
@@ -143,7 +176,7 @@ class Form extends Component {
             ></Inputs>
             <Size
               onSelect={this.handleSelection}
-              sizeOption={this.state.sizeOption}
+              sizeOption={values.sizeOption}
             ></Size>
             <Inputs
               onSelect={this.handleSelection}
@@ -151,11 +184,11 @@ class Form extends Component {
               labels={['Foot Protector Item Number', 'Pillow Item Number']}
             ></Inputs>
             <FootProtector
-              footOption={this.state.footOption}
+              footOption={values.footOption}
               onSelect={this.handleSelection}
             ></FootProtector>
             <Pillow
-              pillowOption={this.state.pillowOption}
+              pillowOption={values.pillowOption}
               onSelect={this.handleSelection}
             ></Pillow>
             <Inputs
@@ -165,30 +198,34 @@ class Form extends Component {
             ></Inputs>
             <Fabric
               onSelect={this.handleSelection}
-              fabricOption={this.state.fabricOption}
+              fabricOption={values.fabricOption}
             ></Fabric>
             <Embroidery
               onSelect={this.handleSelection}
-              embroideryOption={this.state.embroideryOption}
+              embroideryOption={values.embroideryOption}
             ></Embroidery>
             <EmbroideryNumber
               onSelect={this.handleSelection}
-              embroideryOption={this.state.embroideryOption}
-              embroideryNumber={this.state.embroideryNumber}
+              embroideryOption={values.embroideryOption}
+              embroideryNumber={values.embroideryNumber}
             ></EmbroideryNumber>
             <EmbroideryColors
               onSelect={this.handleSelection}
-              embroideryColors={this.state.embroideryColors}
+              embroideryColors={values.embroideryColors}
             ></EmbroideryColors>
             <Color
-              fabricOption={this.state.fabricOption}
-              colorOption={this.state.colorOption}
+              fabricOption={values.fabricOption}
+              colorOption={values.colorOption}
               onSelect={this.handleSelection}
             ></Color>
             <FileName
               onSelect={this.handleSelection}
-              formName={this.state.formName}
+              formName={values.formName}
             ></FileName>
+            <Notes
+              onSelect={this.handleSelection}
+              notes={values.notes}
+            ></Notes>
             <Grid item xs={12} md={6}>
             </Grid>
           </Grid>
