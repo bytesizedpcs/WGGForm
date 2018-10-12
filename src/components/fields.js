@@ -20,6 +20,7 @@ export const Inputs = function (props) {
             onChange={props.onSelect} 
             label={props.labels[index]} 
             fullWidth
+            required
           />
         </Grid>
       )
@@ -45,7 +46,9 @@ export const Notes = function(props) {
         onChange={onSelect}
         multiline
         fullWidth
+        variant="outlined"
         rows="4"
+        required
         />
     </Grid>
   )
@@ -94,6 +97,7 @@ export class Embroidery extends Component {
           }}
           select
           margin="normal"
+          required
           value={this.props.embroideryOption}
           onChange={this.props.onSelect}
         >
@@ -121,6 +125,7 @@ export class EmbroideryNumber extends Component {
               width: '50%'
             }}
             margin="normal"
+            required
             value={this.props.embroideryNumber}
             onChange={this.props.onSelect}
           >
@@ -150,6 +155,7 @@ export class EmbroideryColors extends Component {
               }}
               onChange={this.props.onSelect}
               fullWidth
+              required
             />
           </Grid>
         );
@@ -176,6 +182,7 @@ export class Pillow extends Component {
             shrink: true,
           }}
           select
+          required
           margin="normal"
           value={this.props.pillowOption}
           onChange={this.props.onSelect}
@@ -206,6 +213,7 @@ export class ItemNumber extends Component {
             shrink: true,
           }}
           select
+          required
           margin="normal"
           value={this.props.itemNumber}
           onChange={this.props.onSelect}
@@ -228,6 +236,7 @@ export class Date extends Component {
           label="Date"
           type="date" 
           name="date" 
+          required
           style={{
             marginBottom: '5%',
             width: '50%'
@@ -254,6 +263,7 @@ export class Size extends Component {
           label="Size"
           name="sizeOption" 
           select
+          required
           style={{
             marginBottom: '5%',
             width: '50%'
@@ -286,6 +296,7 @@ export class FootProtector extends Component {
           label="Foot Protector"
           name="footOption"
           select
+          required
           style={{
             marginBottom: '5%',
             width: '50%'
@@ -318,6 +329,7 @@ export class Fabric extends Component {
           label="Fabric Option"
           name="fabricOption" 
           select
+          required
           style={{
             marginBottom: '5%',
             width: '50%'
@@ -350,6 +362,7 @@ export class Color extends Component {
           label="Color"
           name="colorOption" 
           margin="normal"
+          required
           style={{
             marginBottom: '5%',
             width: '50%'
@@ -381,6 +394,7 @@ export class RevealDirection extends Component {
           label="Reveal Direction"
           name="revealDirection"
           margin="normal"
+          required
           style={{
             marginBottom: '5%',
             width: '50%'
@@ -420,6 +434,7 @@ export class Pockets extends Component {
             shrink: true,
           }}
           select
+          required
           value={this.props.pocketOption}
           onChange={this.props.onSelect}
         >

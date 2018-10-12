@@ -18,6 +18,7 @@ import {
   Size,
   Notes,
 } from './fields.js';
+import ImageUpload from './ImageUpload';
 import { getExcelData } from '../helpers/excel';
 
 /**
@@ -44,7 +45,7 @@ class Form extends Component {
 
   constructor(props) {
     super(props);
-
+    
     this.state = {
       values: {
         fileName: '',
@@ -92,10 +93,12 @@ class Form extends Component {
   /**
    * 
    * Submit the form to create XML document and send to MySQL database
+   * Name will be decided on the size of the pillow option (suffix)
    */
   handleSubmit = () => {
 
     const { values } = this.state;
+    const formName = `${values.customerCode}${values.salesOrderNumber}`;
 
     /**
     const form = Object.entries(values).reduce(([key, value]) => ({
@@ -113,36 +116,28 @@ class Form extends Component {
 
     console.log('Form', form);
 
-    /**
-    const form = {
-      'Foot Option': this.state.footOption,
-      'Fabric': this.state.fabricOption,
-      'Color': this.state.colorOption,
-      'Backing': this.state.backingOption,
-      'Pockets': this.state.pocketOption,
-      'Quantity': this.state.quantityOption,
-      'Customer Name': this.state.customerName,
-      'Customer Code': this.state.customerCode,
-      'Size': this.state.sizeOption,
-      'Date': this.state.date,
-      'Embroidery': this.state.embroideryOption,
-      'Foot Protector Item Number': this.state.footProtectorItemNumber,
-      'Pillow Item Number': this.state.pillowItemNumber,
-      'Embroidery Number': this.state.embroideryNumber,
-      'Embroidery Color 1': this.state.embroideryColor0,
-      'Embroidery Color 2': this.state.embroideryColor1,
-      'Embroidery Color 3': this.state.embroideryColor2,
-      'Embroidery Color 4': this.state.embroideryColor3,
-      'Order Number': this.state.orderNumber,
-      'Pillow': this.state.pillowOption,
-      'Submitted By': this.state.submittedBy,
-      'Notes': this.state.notes,
-    };
-    */
-
     const data = getExcelData(form);
 
     this.createExcelSheet(data);
+  }
+
+  /**
+   * Handles the creation and email of file
+   */
+  _handleImageChange = (e) => {
+    e.preventDefault();
+
+    const reader  = new FileReader();
+    const file    = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        file,
+        imagePreviewUrl: reader.result,
+      });
+    }
+
+    reader.readAsDataURL(file);
   }
 
   /**
@@ -226,6 +221,8 @@ class Form extends Component {
               onSelect={this.handleSelection}
               notes={values.notes}
             ></Notes>
+            <ImageUpload
+            ></ImageUpload>
             <Grid item xs={12} md={6}>
             </Grid>
           </Grid>
