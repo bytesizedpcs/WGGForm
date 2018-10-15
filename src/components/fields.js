@@ -181,8 +181,6 @@ export class Pillow extends Component {
       pillows.splice(1, 1);
     }
  
-    console.log('Pillows', pillows);
-
     return (
       <Grid item xs={12} md={6}>
         <TextField 

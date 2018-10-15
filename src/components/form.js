@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
-import XLSX from 'xlsx';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { 
   Inputs,
@@ -14,12 +11,10 @@ import {
   EmbroideryNumber, 
   EmbroideryColors, 
   Color, 
-  FileName,
   Size,
   Notes,
 } from './fields.js';
 import ImageUpload from './ImageUpload';
-import { getExcelData } from '../helpers/excel';
 
 /**
  * 
@@ -71,25 +66,32 @@ class Form extends Component {
 
   }
 
-  /**
-   * Creates and excel sheet from an array of arrays
-   */
-  createExcelSheet = (data) => {
+  componentDidUpdate() {
+    const { values } = this.state;
 
-    const worksheet = XLSX.utils.aoa_to_sheet(data);
-    const newWorkbook = XLSX.utils.book_new();
+    let suffix = '';
 
-    XLSX.utils.book_append_sheet(newWorkbook, worksheet, 'WGG Order Form');
-
-    try {
-      XLSX.writeFile(newWorkbook, `${this.state.fileName}.xlsb`);
-    } catch(error) {
-      console.error(error);
-
-      this.setState({ hasError: true });
+    switch(values.sizeOption.toLowerCase()) {
+      case 'twin':
+        suffix = 'T';
+        break;
+      case 'full':
+        suffix = 'F';
+        break;
+      case 'queen':
+        suffix = 'Q';
+        break;
+      case 'king':
+        suffix = 'K';
+        break;
+      default:
+        suffix = '';
     }
 
-  } 
+    const formName = `${values.customerCode}${values.salesOrderNumber}_${suffix}`
+    document.title = formName;
+  
+  }
 
   /**
    * 
@@ -100,7 +102,6 @@ class Form extends Component {
 
     const { values } = this.state;
 
-    //TODO: Need to implement form name
     let suffix = '';
 
     switch(values.sizeOption.toLowerCase()) {
@@ -124,7 +125,10 @@ class Form extends Component {
 
    this.setState({
     formName,
+    suffix,
    });
+
+   //TODO:Change the title of the website for PDF saving
 
   }
 
