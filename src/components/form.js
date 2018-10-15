@@ -185,6 +185,7 @@ class Form extends Component {
             <Pillow
               pillowOption={values.pillowOption}
               onSelect={this.handleSelection}
+              footProtectorSize={values.footOption}
             ></Pillow>
             <Inputs
               onSelect={this.handleSelection}

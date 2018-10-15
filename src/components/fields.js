@@ -138,11 +138,18 @@ export class EmbroideryNumber extends Component {
   }
 }
 
+/**
+ *
+ * Options created by populating array with undefines
+ *
+ */
 export class EmbroideryColors extends Component {
 
   render() {
+
+    const colorCount = 4;
     return (
-      Array.from({length: 4}).map((_, index) => {
+      Array.from({length: colorCount}).map((_, index) => {
         return (
           <Grid item xs={12} md={6} key={index}>
             <TextField
@@ -166,7 +173,15 @@ export class EmbroideryColors extends Component {
 
 export class Pillow extends Component {
   render() {
-    const pillows = ['None', 'Pillow Shams', 'Body Pillow', 'Pillow Wedge', 'Pillow Wrap'];
+    const { pillowOption, onSelect, footProtectorSize } = this.props;
+    let pillows = ['None', 'Pillow Shams', 'Body Pillow', 'Pillow Wedge', 'Pillow Wrap'];
+
+    // delete the Pillow Shams if the Foot protector option is twin
+    if (footProtectorSize.toLowerCase() === 'twin') {
+      pillows.splice(1, 1);
+    }
+ 
+    console.log('Pillows', pillows);
 
     return (
       <Grid item xs={12} md={6}>
@@ -184,8 +199,8 @@ export class Pillow extends Component {
           select
           required
           margin="normal"
-          value={this.props.pillowOption}
-          onChange={this.props.onSelect}
+          value={pillowOption}
+          onChange={onSelect}
         >
           {
             createOptions(pillows)
