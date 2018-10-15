@@ -231,21 +231,6 @@ class Form extends Component {
             </Grid>
           </Grid>
         </form>
-        {
-        /**
-        <Button 
-          variant="contained" 
-          onClick={this.handleSubmit}
-          style={{
-            margin: '5%',
-            color: 'white',
-            backgroundColor: '#338BAE'
-          }}
-        >
-          Submit
-        </Button>
-        */
-        }
       </div>
     );
   }
