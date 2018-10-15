@@ -98,6 +98,8 @@ class Form extends Component {
   handleSubmit = () => {
 
     const { values } = this.state;
+
+    //TODO: Need to implement form name
     const formName = `${values.customerCode}${values.salesOrderNumber}`;
 
     /**
@@ -228,6 +230,8 @@ class Form extends Component {
             </Grid>
           </Grid>
         </form>
+        {
+        /**
         <Button 
           variant="contained" 
           onClick={this.handleSubmit}
@@ -239,6 +243,8 @@ class Form extends Component {
         >
           Submit
         </Button>
+        */
+        }
       </div>
     );
   }
