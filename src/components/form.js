@@ -57,6 +57,7 @@ class Form extends Component {
         quantityOption: '',
         customerName: '',
         customerCode: '',
+        sizeOption: '',
         date: '',
         embroideryNumber: '',
         embroideryOption: '',
@@ -100,27 +101,31 @@ class Form extends Component {
     const { values } = this.state;
 
     //TODO: Need to implement form name
-    const formName = `${values.customerCode}${values.salesOrderNumber}`;
+    let suffix = '';
 
-    /**
-    const form = Object.entries(values).reduce(([key, value]) => ({
-      prev[_.startCase(key)] = value
-    }));
-    */
-    
-    const form = Object.entries(values).reduce((accum, [key, value]) => {
-      console.log('Accum', accum)
-      console.log('Key', key)
-      console.log('value', value)
-      accum.push([key, value]);
-      return accum;
-    }, []);
+    switch(values.sizeOption.toLowerCase()) {
+      case 'twin':
+        suffix = 'T';
+        break;
+      case 'full':
+        suffix = 'F';
+        break;
+      case 'queen':
+        suffix = 'Q';
+        break;
+      case 'king':
+        suffix = 'K';
+        break;
+      default:
+        suffix = '';
+    }
 
-    console.log('Form', form);
+   const formName = `${values.customerCode}${values.salesOrderNumber}_${suffix}`
 
-    const data = getExcelData(form);
+   this.setState({
+    formName,
+   });
 
-    this.createExcelSheet(data);
   }
 
   /**
@@ -187,7 +192,7 @@ class Form extends Component {
             <Pillow
               pillowOption={values.pillowOption}
               onSelect={this.handleSelection}
-              footProtectorSize={values.footOption}
+              sizeOption={values.sizeOption}
             ></Pillow>
             <Inputs
               onSelect={this.handleSelection}
@@ -216,10 +221,6 @@ class Form extends Component {
               colorOption={values.colorOption}
               onSelect={this.handleSelection}
             ></Color>
-            <FileName
-              onSelect={this.handleSelection}
-              formName={values.formName}
-            ></FileName>
             <Notes
               onSelect={this.handleSelection}
               notes={values.notes}

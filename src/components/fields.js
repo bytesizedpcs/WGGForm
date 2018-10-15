@@ -173,11 +173,11 @@ export class EmbroideryColors extends Component {
 
 export class Pillow extends Component {
   render() {
-    const { pillowOption, onSelect, footProtectorSize } = this.props;
+    const { pillowOption, onSelect, sizeOption } = this.props;
     let pillows = ['None', 'Pillow Shams', 'Body Pillow', 'Pillow Wedge', 'Pillow Wrap'];
 
     // delete the Pillow Shams if the Foot protector option is twin
-    if (footProtectorSize.toLowerCase() === 'twin') {
+    if (sizeOption.toLowerCase() === 'twin') {
       pillows.splice(1, 1);
     }
  
