@@ -66,6 +66,11 @@ class Form extends Component {
 
   }
 
+  /**
+   * Function that is called everytime the form renders to 
+   * change the title for the PDF print/save
+   *
+   */
   componentDidUpdate() {
     const { values } = this.state;
 
@@ -90,7 +95,6 @@ class Form extends Component {
 
     const formName = `${values.customerCode}${values.salesOrderNumber}_${suffix}`
     document.title = formName;
-  
   }
 
   /**
@@ -99,36 +103,6 @@ class Form extends Component {
    * Name will be decided on the size of the pillow option (suffix)
    */
   handleSubmit = () => {
-
-    const { values } = this.state;
-
-    let suffix = '';
-
-    switch(values.sizeOption.toLowerCase()) {
-      case 'twin':
-        suffix = 'T';
-        break;
-      case 'full':
-        suffix = 'F';
-        break;
-      case 'queen':
-        suffix = 'Q';
-        break;
-      case 'king':
-        suffix = 'K';
-        break;
-      default:
-        suffix = '';
-    }
-
-   const formName = `${values.customerCode}${values.salesOrderNumber}_${suffix}`
-
-   this.setState({
-    formName,
-    suffix,
-   });
-
-   //TODO:Change the title of the website for PDF saving
 
   }
 
