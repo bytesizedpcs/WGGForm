@@ -162,7 +162,6 @@ export class EmbroideryColors extends Component {
               }}
               onChange={this.props.onSelect}
               fullWidth
-              required
             />
           </Grid>
         );
@@ -333,7 +332,25 @@ export class FootProtector extends Component {
 export class Fabric extends Component {
   
   render() {
-    const fabrics = ['Banger', 'Jett', 'Mercer', 'Peak', 'Optima', 'Lustre', 'Tacoma'];
+    const fabrics = ['Banger/Cambridge', 
+      'Jett/Slate',
+      'Jett/Heather',
+      'Jett/Khaki',
+      'Jett/Ruby',
+      'Mercer/Smoke',
+      'Mercer/Flannel',
+      'Peak/Buff',
+      'Peak/Lt-Grey',
+      'Peak/Fog',
+      'Peak/Cardinal',
+      'Optima/Stone',
+      'Optima,Espresso',
+      'Optima/Charcoal',
+      'Optima/Black',
+      'Optima/Navy',
+      'Lustre/Coal',
+      'Tacoma/Chocolate',
+    ];
 
     return (
       <Grid item xs={12} md={6}>

@@ -10,7 +10,6 @@ import {
   Embroidery,
   EmbroideryNumber, 
   EmbroideryColors, 
-  Color, 
   Size,
   Notes,
 } from './fields.js';
@@ -194,11 +193,6 @@ class Form extends Component {
               onSelect={this.handleSelection}
               embroideryColors={values.embroideryColors}
             ></EmbroideryColors>
-            <Color
-              fabricOption={values.fabricOption}
-              colorOption={values.colorOption}
-              onSelect={this.handleSelection}
-            ></Color>
             <Notes
               onSelect={this.handleSelection}
               notes={values.notes}
