@@ -48,7 +48,6 @@ export const Notes = function(props) {
         fullWidth
         variant="outlined"
         rows="4"
-        required
         />
     </Grid>
   )
