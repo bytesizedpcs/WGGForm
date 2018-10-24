@@ -29,20 +29,14 @@ export const Inputs = function (props) {
 };
 
 export class FootProtectorQuantity extends Component {
+  isFPNo = value => value.toLowerCase() === 'no';
+
+  componentDidUpdate() {
+  
+  }
+
   render() {
-    const { footProtector, footProtectorQuantity, onSelect } = this.props;
-
-    /**
-     * footProtectorQuantity is read-only
-     * keep the value in fpQ and then update using that
-     */
-    let fpQ = footProtectorQuantity;
-
-    if (footProtector.toLowerCase() === 'no') {
-      fpQ = '0';
-    } else if (footProtector.toLowerCase() === 'yes'){
-      fpQ = '';
-    }
+    const { footProtector, footProtectorQuantity, onSelect, onFPSelect } = this.props;
 
     return (
       <Grid item xs={12} md={6}>
@@ -57,8 +51,12 @@ export class FootProtectorQuantity extends Component {
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={onSelect} 
-          value={fpQ}
+          onChange={
+            this.isFPNo(footProtector) ? 
+            onFPSelect : 
+            onSelect
+          }
+          value={footProtectorQuantity}
           fullWidth
           required
         />

@@ -93,8 +93,6 @@ class Form extends Component {
         suffix = '';
     }
 
-
-
     const formName = `${values.customerCode}${values.salesOrderNumber}_${suffix}`
     document.title = formName;
   }
@@ -138,6 +136,17 @@ class Form extends Component {
         [name]: value,
       },
     }));
+  }
+
+  handleFPSelection = (event) => {
+    const { target: { name } } = event;
+
+    this.setState(prevState => ({
+      values: {
+        ...prevState.values,
+        [name]: '0',
+      }
+    }))
   }
 
   /**
@@ -185,6 +194,7 @@ class Form extends Component {
             ></Inputs>
             <FootProtectorQuantity
               onSelect={this.handleSelection}
+              onFPSelect={this.handleFPSelection}
               footProtector={values.footOption}
               footProtectorQuantity={values.footProtectorQuantity}
             ></FootProtectorQuantity>
