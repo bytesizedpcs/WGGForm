@@ -138,13 +138,33 @@ class Form extends Component {
     }));
   }
 
-  handleFPSelection = (event) => {
+  /**
+   * Function to handle the setting of the state while footOption is 'no'
+   * Sets the value of fpQ as 0
+   */
+  handleFPQuantitySelection = (event) => {
     const { target: { name } } = event;
 
     this.setState(prevState => ({
       values: {
         ...prevState.values,
         [name]: '0',
+      }
+    }))
+  }
+
+  /**
+   * Function to handle setting the state of the component's actual value
+   * and the state of footProtectorQuantity
+   */
+  handleFPSelection = (event) => {
+    const { target: { name, value } } = event;
+    
+    this.setState(prevState => ({
+      values: {
+        ...prevState.values,
+        [name]: value,
+        'footProtectorQuantity': '0',
       }
     }))
   }
@@ -178,10 +198,6 @@ class Form extends Component {
               fields={['footProtectorItemNumber', 'pillowItemNumber']}
               labels={['Foot Protector Item Number', 'Pillow Item Number']}
             ></Inputs>
-            <FootProtector
-              footOption={values.footOption}
-              onSelect={this.handleSelection}
-            ></FootProtector>
             <Pillow
               pillowOption={values.pillowOption}
               onSelect={this.handleSelection}
@@ -192,9 +208,14 @@ class Form extends Component {
               fields={['pillowQuantity']}
               labels={['Pillow Quantity']}
             ></Inputs>
-            <FootProtectorQuantity
+            <FootProtector
+              footOption={values.footOption}
               onSelect={this.handleSelection}
               onFPSelect={this.handleFPSelection}
+            ></FootProtector>
+            <FootProtectorQuantity
+              onSelect={this.handleSelection}
+              onFPSelect={this.handleFPQuantitySelection}
               footProtector={values.footOption}
               footProtectorQuantity={values.footProtectorQuantity}
             ></FootProtectorQuantity>

@@ -32,7 +32,7 @@ export class FootProtectorQuantity extends Component {
   isFPNo = value => value.toLowerCase() === 'no';
 
   componentDidUpdate() {
-  
+
   }
 
   render() {
@@ -333,13 +333,13 @@ export class Size extends Component {
 
 }
 
+// update fpQ's state through this component
+// when this component's option changes to no
 export class FootProtector extends Component {
-  componentDidUpdate() {
-    if (this.props.footOption.toLowerCase() === 'no') {
-      this.setState()
-    }
-  }
+  isFPNo = value => value.toLowerCase() === 'no';
+
   render() {
+    const { footOption, onFPSelect, onSelect } = this.props;
     const options = ['Yes', 'No'];
 
     return (
@@ -358,8 +358,12 @@ export class FootProtector extends Component {
             shrink: true,
           }}
           margin="normal"
-          value={this.props.footOption}
-          onChange={this.props.onSelect}
+          value={footOption}
+          onChange={
+            this.isFPNo(footOption) ?
+            onSelect :
+            onFPSelect
+          }
         >
           {
             createOptions(options)
