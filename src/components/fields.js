@@ -28,6 +28,45 @@ export const Inputs = function (props) {
   )
 };
 
+export class FootProtectorQuantity extends Component {
+  render() {
+    const { footProtector, footProtectorQuantity, onSelect } = this.props;
+
+    /**
+     * footProtectorQuantity is read-only
+     * keep the value in fpQ and then update using that
+     */
+    let fpQ = footProtectorQuantity;
+
+    if (footProtector.toLowerCase() === 'no') {
+      fpQ = '0';
+    } else if (footProtector.toLowerCase() === 'yes'){
+      fpQ = '';
+    }
+
+    return (
+      <Grid item xs={12} md={6}>
+        <TextField 
+          id="foot-quantity"
+          label="Foot Protector Quantity"
+          name="footProtectorQuantity"
+          style={{
+            marginBottom: '5%',
+            width: '50%'
+          }}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={onSelect} 
+          value={fpQ}
+          fullWidth
+          required
+        />
+      </Grid>
+    )
+  }
+}
+
 export const Notes = function(props) {
   const { notes, onSelect } = props;
   return (
@@ -297,8 +336,13 @@ export class Size extends Component {
 }
 
 export class FootProtector extends Component {
+  componentDidUpdate() {
+    if (this.props.footOption.toLowerCase() === 'no') {
+      this.setState()
+    }
+  }
   render() {
-    const options = ['None', 'Twin', 'Full', 'Queen', 'King'];
+    const options = ['Yes', 'No'];
 
     return (
       <Grid item xs={12} md={6}>

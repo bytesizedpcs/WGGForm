@@ -7,6 +7,14 @@ import './App.css';
 
 class App extends Component {
 
+  componentDidMount() {
+    var isFirefox = navigator.userAgent.toLocaleLowerCase().indexOf('firefox') > -1;
+
+    if (isFirefox) {
+      alert('Please use another browser other than Firefox for the form to work properly.');
+    }
+  }
+
   render() {
     return (
       <div className="App">
@@ -21,6 +29,11 @@ class App extends Component {
         <img id="logo" src={logo} width="300" alt="Wright Tailored" />
         <div id="instruction-div">
           Click on the type below to enter your selections.
+          <br />
+          All fields with (*) must be completed
+          <br />
+          Email completed form and any additional files 
+          to: wrighttailored@wrightglobalgraphics.com
         </div>
         <Form></Form>
       </div>

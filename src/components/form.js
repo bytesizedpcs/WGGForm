@@ -12,6 +12,7 @@ import {
   EmbroideryColors, 
   Size,
   Notes,
+  FootProtectorQuantity,
 } from './fields.js';
 import ImageUpload from './ImageUpload';
 
@@ -92,6 +93,8 @@ class Form extends Component {
         suffix = '';
     }
 
+
+
     const formName = `${values.customerCode}${values.salesOrderNumber}_${suffix}`
     document.title = formName;
   }
@@ -137,6 +140,10 @@ class Form extends Component {
     }));
   }
 
+  /**
+   * 
+   */
+
   render() {
     const { classes } = this.props;
     const { values } = this.state;
@@ -173,9 +180,14 @@ class Form extends Component {
             ></Pillow>
             <Inputs
               onSelect={this.handleSelection}
-              fields={['footProtectorQuantity', 'pillowQuantity']}
-              labels={['Foot Protector Quantity', 'Pillow Quantity']}
+              fields={['pillowQuantity']}
+              labels={['Pillow Quantity']}
             ></Inputs>
+            <FootProtectorQuantity
+              onSelect={this.handleSelection}
+              footProtector={values.footOption}
+              footProtectorQuantity={values.footProtectorQuantity}
+            ></FootProtectorQuantity>
             <Fabric
               onSelect={this.handleSelection}
               fabricOption={values.fabricOption}
