@@ -11,7 +11,7 @@ class App extends Component {
     var isFirefox = navigator.userAgent.toLocaleLowerCase().indexOf('firefox') > -1;
 
     if (isFirefox) {
-      alert('Please use another browser other than Firefox for the form to work properly.');
+      alert('Using Mozilla Firefox may lead to unexpected errors when using the form. Please use either Google Chrome or Microsoft Edge for the best results.');
     }
   }
 
@@ -20,6 +20,7 @@ class App extends Component {
       <div className="App">
         <AppBar 
           position="static" 
+          className="AppBar"
           style={{marginBottom: '2%',}}
         >
           <Toolbar style={{ backgroundColor: '#1c1c1c', }}>

@@ -103,6 +103,9 @@ class Form extends Component {
     document.title = formName;
   }
 
+  /**
+   * Gets the suffix from the size option
+   */
   getSuffix = (state) => {
     const { values } = state;
 
@@ -128,6 +131,9 @@ class Form extends Component {
     return suffix;
   }
 
+  /**
+   * Creates the form name from state values
+   */
   getFormName = () => {
     const { values } = this.state;
     const suffix = this.getSuffix(this.state);
@@ -284,15 +290,21 @@ class Form extends Component {
             ></Notes>
             <ImageUpload
             ></ImageUpload>
-            <Button 
-              variant="contained" 
-              color="primary" 
-              className={classes.button}
-              onClick={this.handleSubmit}
-            >
-              Print
-            </Button>
             <Grid item xs={12} md={6}>
+              <Button 
+                variant="contained" 
+                color="primary" 
+                className={classes.button}
+                onClick={this.handleSubmit}
+                style={{
+                  marginTop: '15%',
+                  marginLeft: '95%',
+                  maxHeight: '80px',
+                  width: '120px'
+                }}
+              >
+                Save to PDF
+              </Button>
             </Grid>
           </Grid>
         </form>
