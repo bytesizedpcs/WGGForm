@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
+import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { 
   Inputs,
@@ -15,6 +16,11 @@ import {
   FootProtectorQuantity,
 } from './fields.js';
 import ImageUpload from './ImageUpload';
+import { createPdf } from '../helpers/pdf';
+const pdfMake = require('pdfmake/build/pdfmake.js');
+const vfsFonts = require('pdfmake/build/vfs_fonts.js');
+const { vfs } = vfsFonts.pdfMake;
+pdfMake.vfs = vfs;
 
 /**
  * 
@@ -97,13 +103,49 @@ class Form extends Component {
     document.title = formName;
   }
 
+  getSuffix = (state) => {
+    const { values } = state;
+
+    let suffix = '';
+
+    switch(values.sizeOption.toLowerCase()) {
+      case 'twin':
+        suffix = 'T';
+        break;
+      case 'full':
+        suffix = 'F';
+        break;
+      case 'queen':
+        suffix = 'Q';
+        break;
+      case 'king':
+        suffix = 'K';
+        break;
+      default:
+        suffix = '';
+    }
+
+    return suffix;
+  }
+
+  getFormName = () => {
+    const { values } = this.state;
+    const suffix = this.getSuffix(this.state);
+
+    const formName = `${values.customerCode}${values.salesOrderNumber}_${suffix}`
+
+    return formName;
+  }
+
   /**
    * 
    * Submit the form to create XML document and send to MySQL database
    * Name will be decided on the size of the pillow option (suffix)
    */
   handleSubmit = () => {
+    const docShape = createPdf(this.state);
 
+    pdfMake.createPdf(docShape).download(this.getFormName()); 
   }
 
   /**
@@ -242,6 +284,14 @@ class Form extends Component {
             ></Notes>
             <ImageUpload
             ></ImageUpload>
+            <Button 
+              variant="contained" 
+              color="primary" 
+              className={classes.button}
+              onClick={this.handleSubmit}
+            >
+              Print
+            </Button>
             <Grid item xs={12} md={6}>
             </Grid>
           </Grid>

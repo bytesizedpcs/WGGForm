@@ -7,6 +7,7 @@
     "enzyme": "^3.5.0",
     "lodash": "^4.17.11",
     "materialize-css": "^1.0.0-rc.2",
+    "pdfmake": "^0.1.38",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-materialize": "^2.4.2",
