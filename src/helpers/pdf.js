@@ -1,5 +1,5 @@
 export function createPdf(data){
-  const { values } = data;
+  const { values, imagePreviewUrl } = data;
 
   const docShape = {
     content: [
@@ -17,6 +17,7 @@ export function createPdf(data){
             values.customerName,
         ],
       },
+      '\n',
       {
         columns: [
           {
@@ -31,6 +32,7 @@ export function createPdf(data){
             values.fabricOption,
         ],
       },
+      '\n',
       {
         columns: [
           {
@@ -44,7 +46,9 @@ export function createPdf(data){
           },
             values.submittedBy,
         ],
-      },{
+      },
+      '\n',
+      {
         columns: [
           {
             text: 'Fabric',
@@ -57,7 +61,9 @@ export function createPdf(data){
           },
             values.sizeOption,
         ],
-      },{
+      },
+      '\n',
+      {
         columns: [
           {
             text: 'Embroidery',
@@ -70,7 +76,9 @@ export function createPdf(data){
           },
             values.embroideryNumber,
         ],
-      },{
+      },
+      '\n',
+      {
         columns: [
           {
             text: 'Foot Protector',
@@ -83,7 +91,9 @@ export function createPdf(data){
           },
             values.footProtectorItemNumber,
         ],
-      },{
+      },
+      '\n',
+      {
         columns: [
           {
             text: 'Foot Protector Quantity',
@@ -96,7 +106,9 @@ export function createPdf(data){
           },
             values.pillowOption,
         ],
-      },{
+      },
+      '\n',
+      {
         columns: [
           {
             text: 'Pillow Item Number',
@@ -109,7 +121,9 @@ export function createPdf(data){
           },
             values.pillowQuantity,
         ],
-      },{
+      },
+      '\n',
+      {
         columns: [
           {
             text: 'Embroidery Color 1',
@@ -122,7 +136,9 @@ export function createPdf(data){
           },
             values.embroideryColor1,
         ],
-      },{
+      },
+      '\n',
+      {
         columns: [
           {
             text: 'Embroidery Color 3',
@@ -135,7 +151,9 @@ export function createPdf(data){
           },
             values.embroideryColor3,
         ],
-      },{
+      },
+      '\n',
+      {
         columns: [
           {
             text: 'Notes',
@@ -144,6 +162,12 @@ export function createPdf(data){
         ],
       },
       values.notes,
+      '\n',
+      '\n',
+      {
+        image: imagePreviewUrl,
+        fit: [300, 300],
+      }
     ],
     styles: {
       header: {
@@ -154,33 +178,3 @@ export function createPdf(data){
 
   return docShape;
 }
-
-/**
- * {…}
-backingOption: ""
-colorOption: ""
-customerCode: "012334"
-customerName: "Test Customer"
-date: "2018-10-17"
-embroideryColor0: "13213"
-embroideryColor1: "43214314"
-embroideryColor2: "1243143214"
-embroideryColor3: "123421423"
-embroideryNumber: "13213"
-embroideryOption: "standing"
-fabricOption: "jett/ruby"
-fileName: ""
-footOption: "yes"
-footProtectorItemNumber: "1321313"
-footProtectorQuantity: "213214"
-notes: ";jflkdsa;jfsdkla;jfdskla;jfkdlsa;"
-orderNumber: ""
-pillowItemNumber: "132131"
-pillowOption: "pillow shams"
-pillowQuantity: "13213"
-pocketOption: ""
-quantityOption: ""
-salesOrderNumber: "3123123"
-sizeOption: "full"
-submittedBy: "Austin Canada"
- */

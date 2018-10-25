@@ -68,6 +68,8 @@ class Form extends Component {
         notes: '',
       },
       hasError: false,
+      file: '',
+      imagePreviewUrl: '',
     };
 
   }
@@ -157,11 +159,13 @@ class Form extends Component {
   /**
    * Handles the creation and email of file
    */
-  _handleImageChange = (e) => {
+  handleImageChange = (e) => {
     e.preventDefault();
 
     const reader  = new FileReader();
     const file    = e.target.files[0];
+
+    reader.readAsDataURL(file);
 
     reader.onloadend = () => {
       this.setState({
@@ -170,7 +174,6 @@ class Form extends Component {
       });
     }
 
-    reader.readAsDataURL(file);
   }
 
   /**
@@ -223,7 +226,7 @@ class Form extends Component {
 
   render() {
     const { classes } = this.props;
-    const { values } = this.state;
+    const { values, imagePreviewUrl } = this.state;
     
     return (
       <div className="form" noValidate autoComplete="off">
@@ -289,6 +292,8 @@ class Form extends Component {
               notes={values.notes}
             ></Notes>
             <ImageUpload
+              url={imagePreviewUrl}
+              handleChange={this.handleImageChange}
             ></ImageUpload>
             <Grid item xs={12} md={6}>
               <Button 
