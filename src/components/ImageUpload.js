@@ -5,13 +5,13 @@ export default class ImageUpload extends React.Component {
 
   render() {
     const { url, handleChange } = this.props;
-    let $imagePreview = null;
+    let imagePreview = null;
     console.log('props', this.props);
 
     if (url) {
-      $imagePreview = (<img className="thumbnail-img" src={url} />);
+      imagePreview = (<img className="thumbnail-img" alt="Thumbnail" src={url} />);
     } else {
-      $imagePreview = (<div className="previewText">Please select an image for preview</div>);
+      imagePreview = (<div className="previewText">Please select an image for preview</div>);
     }
 
     return (
@@ -22,7 +22,7 @@ export default class ImageUpload extends React.Component {
           onChange={handleChange}
         />
         <div className="imgPreview">
-          {$imagePreview}
+          {imagePreview}
         </div>
       </div>
     )

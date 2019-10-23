@@ -377,24 +377,17 @@ export class FootProtector extends Component {
 export class Fabric extends Component {
   
   render() {
-    const fabrics = ['Banger/Cambridge', 
-      'Jett/Slate',
-      'Jett/Heather',
-      'Jett/Khaki',
-      'Jett/Ruby',
-      'Mercer/Smoke',
-      'Mercer/Flannel',
-      'Peak/Buff',
-      'Peak/Lt-Grey',
-      'Peak/Fog',
-      'Peak/Cardinal',
-      'Optima/Stone',
-      'Optima,Espresso',
-      'Optima/Charcoal',
-      'Optima/Black',
-      'Optima/Navy',
-      'Lustre/Coal',
-      'Tacoma/Chocolate',
+    const fabrics = [
+      'fabric1', 
+      'fabric2',
+      'fabric3',
+      'fabric4',
+      'fabric5',
+      'fabric6',
+      'fabric7',
+      'fabric8',
+      'fabric9',
+      'fabric10',
     ];
 
     return (
